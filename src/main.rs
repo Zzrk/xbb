@@ -1,6 +1,8 @@
 #[macro_use]
 extern crate rocket;
 
+mod calendar;
+
 #[get("/")]
 fn index() -> &'static str {
     "Hello, xbb!"
@@ -8,5 +10,7 @@ fn index() -> &'static str {
 
 #[launch]
 fn rocket() -> _ {
-    rocket::build().mount("/", routes![index])
+    rocket::build()
+        .mount("/", routes![index])
+        .attach(calendar::stage())
 }
