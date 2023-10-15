@@ -1,3 +1,5 @@
+use std::fs;
+
 use rocket::serde::json::{from_str, json, Json, Value};
 use rocket::serde::{Deserialize, Serialize};
 use rocket::tokio::sync::Mutex;
@@ -44,33 +46,9 @@ fn not_found() -> Value {
 
 pub fn stage() -> rocket::fairing::AdHoc {
     // 模拟数据
-    let mock = r#"
-        [
-          {
-            "id": 0,
-            "title": "栽培计划",
-            "begin_time": "2023-09-25 21:00:00Z",
-            "end_time": "2023-10-15 16:00:00Z",
-            "description": ""
-          },
-          {
-            "id": 1,
-            "title": "焚天之翼",
-            "begin_time": "2023-09-26 02:00:00Z",
-            "end_time": "2023-10-10 21:00:00Z",
-            "description": ""
-          },
-          {
-            "id": 2,
-            "title": "远征金币翻倍",
-            "begin_time": "2023-10-13 21:00:00Z",
-            "end_time": "2023-10-15 21:00:00Z",
-            "description": "活动期间, 开启远征宝箱, 获取金币奖励翻倍."
-          }
-        ]
-    "#;
+    let mock = fs::read_to_string("src/calendar/mock.json").expect("no such file");
     // JSON 反序列化
-    let list: Vec<CalendarInfo> = from_str(mock).unwrap();
+    let list: Vec<CalendarInfo> = from_str(mock.as_str()).unwrap();
 
     rocket::fairing::AdHoc::on_ignite("Calendar", |rocket| async {
         rocket
