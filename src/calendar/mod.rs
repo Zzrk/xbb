@@ -24,9 +24,12 @@ struct CalendarInfo {
 #[get("/<id>")]
 async fn get(id: Id, list: CalendarInfoState<'_>) -> Option<Json<CalendarInfo>> {
     let list = list.lock().await;
-    let info = list.get(id)?;
 
-    Some(Json(info.clone()))
+    if let Some(info) = list.get(id) {
+        Some(Json(info.clone()))
+    } else {
+        None
+    }
 }
 
 // 获取全部数据
