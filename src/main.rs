@@ -3,6 +3,7 @@ extern crate rocket;
 
 mod calendar;
 mod equipment;
+mod hero;
 
 #[get("/")]
 fn index() -> &'static str {
@@ -15,4 +16,5 @@ fn rocket() -> _ {
         .mount("/", routes![index])
         .attach(calendar::stage())
         .attach(equipment::stage())
+        .attach(hero::stage())
 }
