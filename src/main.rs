@@ -4,6 +4,7 @@ extern crate rocket;
 mod calendar;
 mod equipment;
 mod hero;
+mod my_equipment;
 
 #[get("/")]
 fn index() -> &'static str {
@@ -17,4 +18,5 @@ fn rocket() -> _ {
         .attach(calendar::stage())
         .attach(equipment::stage())
         .attach(hero::stage())
+        .attach(my_equipment::stage())
 }
