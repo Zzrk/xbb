@@ -2,7 +2,6 @@
 extern crate rocket;
 use dotenv::dotenv;
 
-mod my_equipment;
 mod db;
 mod models;
 mod routes;
@@ -22,5 +21,4 @@ fn rocket() -> _ {
         .attach(routes::calendar::stage())
         .attach(routes::equipment::stage())
         .attach(routes::hero::stage())
-        .attach(my_equipment::stage())
 }
