@@ -5,6 +5,7 @@ use std::env;
 
 pub mod calendar;
 pub mod equipment;
+pub mod hero;
 
 pub fn init() -> AdHoc {
     AdHoc::on_ignite("Connecting to MongoDB", |rocket| async {

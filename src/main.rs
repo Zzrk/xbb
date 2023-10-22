@@ -2,7 +2,6 @@
 extern crate rocket;
 use dotenv::dotenv;
 
-mod hero;
 mod my_equipment;
 mod db;
 mod models;
@@ -22,6 +21,6 @@ fn rocket() -> _ {
         .mount("/", routes![index])
         .attach(routes::calendar::stage())
         .attach(routes::equipment::stage())
-        .attach(hero::stage())
+        .attach(routes::hero::stage())
         .attach(my_equipment::stage())
 }
