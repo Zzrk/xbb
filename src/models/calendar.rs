@@ -18,3 +18,17 @@ pub struct Calendar {
     pub end_time: String,
     pub description: String,
 }
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RedeemCodeDocument {
+    pub _id: ObjectId,
+    pub code: String,
+    pub desc: String,
+}
+
+#[derive(Debug, Serialize, Deserialize)]
+pub struct RedeemCode {
+    pub _id: String,
+    pub code: String,
+    pub desc: String,
+}

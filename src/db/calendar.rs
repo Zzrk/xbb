@@ -1,7 +1,7 @@
 use mongodb::Database;
 use futures::stream::TryStreamExt;
 
-use crate::models::calendar::{Calendar, CalendarDocument};
+use crate::models::calendar::{Calendar, CalendarDocument, RedeemCode, RedeemCodeDocument};
 
 pub async fn get_all_activities(db: &Database) -> mongodb::error::Result<Vec<Calendar>> {
     let collection = db.collection::<CalendarDocument>("calendar");
@@ -28,4 +28,27 @@ pub async fn get_all_activities(db: &Database) -> mongodb::error::Result<Vec<Cal
 
 
     Ok(activities)
+}
+
+pub async fn get_all_codes(db: &Database) -> mongodb::error::Result<Vec<RedeemCode>> {
+    let collection = db.collection::<RedeemCodeDocument>("code");
+    let mut cursor = collection.find(None, None).await?;
+
+    let mut codes: Vec<RedeemCode> = Vec::new();
+
+    while let Some(result) = cursor.try_next().await? {
+        let _id = result._id;
+        let code = result.code;
+        let desc = result.desc;
+        // transform ObjectId to String
+        let customer_json = RedeemCode {
+            _id: _id.to_string(),
+            code,
+            desc,
+        };
+        codes.push(customer_json);
+    }
+
+
+    Ok(codes)
 }
