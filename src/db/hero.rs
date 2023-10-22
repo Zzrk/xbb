@@ -4,7 +4,7 @@ use futures::stream::TryStreamExt;
 use crate::models::hero::{Hero, HeroDocument};
 
 pub async fn get_all_heroes(db: &Database) -> mongodb::error::Result<Vec<Hero>> {
-    let collection = db.collection::<HeroDocument>("equipment");
+    let collection = db.collection::<HeroDocument>("hero");
     let mut cursor = collection.find(None, None).await?;
 
     let mut heroes: Vec<Hero> = Vec::new();
