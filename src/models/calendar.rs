@@ -7,7 +7,8 @@ pub struct CalendarDocument {
     pub title: String,
     pub begin_time: String,
     pub end_time: String,
-    pub description: String,
+    pub description: Vec<String>,
+    pub status: u8,
 }
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -16,7 +17,7 @@ pub struct Calendar {
     pub title: String,
     pub begin_time: String,
     pub end_time: String,
-    pub description: String,
+    pub description: Vec<String>,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

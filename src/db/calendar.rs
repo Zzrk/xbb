@@ -1,11 +1,11 @@
-use mongodb::Database;
+use mongodb::{Database, bson::doc};
 use futures::stream::TryStreamExt;
 
 use crate::models::calendar::{Calendar, CalendarDocument, RedeemCode, RedeemCodeDocument};
 
 pub async fn get_all_activities(db: &Database) -> mongodb::error::Result<Vec<Calendar>> {
     let collection = db.collection::<CalendarDocument>("calendar");
-    let mut cursor = collection.find(None, None).await?;
+    let mut cursor = collection.find(doc! {"status": 1}, None).await?;
 
     let mut activities: Vec<Calendar> = Vec::new();
 
