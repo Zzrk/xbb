@@ -5,6 +5,7 @@ use dotenv::dotenv;
 mod db;
 mod models;
 mod routes;
+mod fairings;
 
 #[get("/")]
 fn index() -> &'static str {
@@ -17,6 +18,7 @@ fn rocket() -> _ {
 
     rocket::build()
         .attach(db::init())
+        .attach(fairings::cors::CORS)
         .mount("/", routes![index])
         .attach(routes::calendar::stage())
         .attach(routes::equipment::stage())
